@@ -1,0 +1,10 @@
+node_modules/
+artifacts/
+cache/
+typechain-types/
+.env
+package-lock.json
+relayer/node_modules/
+relayer/package-lock.json
+/tmp/
+*.log
