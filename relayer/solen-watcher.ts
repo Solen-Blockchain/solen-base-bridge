@@ -79,9 +79,7 @@ async function getBlock(height: number): Promise<any> {
 
 async function getBlockTxs(height: number): Promise<any[]> {
   // Use the explorer API to get transactions with events
-  const apiUrl = config.solen.rpc
-    .replace("testnet-rpc", "testnet-api")
-    .replace(":19944", ":19955");
+  const apiUrl = config.solen.rpc.replace(":9944", ":9955");
   try {
     const resp = await fetch(`${apiUrl}/api/blocks/${height}/txs`);
     if (!resp.ok) return [];
