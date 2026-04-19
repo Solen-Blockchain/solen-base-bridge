@@ -6,8 +6,8 @@ export const config = {
   // Base Mainnet
   base: {
     rpc: process.env.BASE_RPC || "https://mainnet.base.org",
-    bridgeAddress: "0x076b3977561a8eDb6E92CCA479104DD62DdaFf7C",
-    wsolenAddress: "0xFaa59fbA59E8dEb2e1264f3efcd5a3675F6986a9",
+    bridgeAddress: "0x67c369a8FC8fd099158df035F1bE9A8cc29f66Ea",
+    wsolenAddress: "0x14C84e576EDDb3e24b3dA3659843b585285f9fD9",
     relayerKey: process.env.DEPLOYER_PRIVATE_KEY!,
     chainId: 8453,
   },
