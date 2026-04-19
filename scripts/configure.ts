@@ -1,34 +1,28 @@
 import { ethers } from "hardhat";
 
-const WSOLEN_ADDRESS = "0x2774FF63879Ae11CC6763538Ec1133d2907fCe8F";
-const BRIDGE_ADDRESS = "0x114E53baa3A49A3D1F28DCaBdF27EF13EF19bbAD";
-
 async function main() {
   const [deployer] = await ethers.getSigners();
+  const wSOLENAddress = "0xFaa59fbA59E8dEb2e1264f3efcd5a3675F6986a9";
+  const bridgeAddress = "0x076b3977561a8eDb6E92CCA479104DD62DdaFf7C";
+
   console.log("Configuring with:", deployer.address);
 
-  const wSOLEN = await ethers.getContractAt("WrappedSOLEN", WSOLEN_ADDRESS);
-  const bridge = await ethers.getContractAt("SolenBridge", BRIDGE_ADDRESS);
+  const wSOLEN = await ethers.getContractAt("WrappedSOLEN", wSOLENAddress);
+  const bridge = await ethers.getContractAt("SolenBridge", bridgeAddress);
 
-  // Set bridge as authorized minter on wSOLEN
+  // Set bridge on wSOLEN
   console.log("Setting bridge on wSOLEN...");
-  const tx1 = await wSOLEN.setBridge(BRIDGE_ADDRESS);
+  const tx1 = await wSOLEN.setBridge(bridgeAddress);
   await tx1.wait();
-  console.log("Done. TX:", tx1.hash);
+  console.log("Done. Bridge set to:", bridgeAddress);
 
-  // Set deployer as relayer
+  // Set relayer
   console.log("Setting relayer...");
   const tx2 = await bridge.setRelayer(deployer.address, true);
   await tx2.wait();
-  console.log("Done. TX:", tx2.hash);
+  console.log("Done. Relayer set to:", deployer.address);
 
   console.log("\n=== Configuration Complete ===");
-  console.log("WrappedSOLEN:", WSOLEN_ADDRESS);
-  console.log("SolenBridge: ", BRIDGE_ADDRESS);
-  console.log("Relayer:     ", deployer.address);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main().catch(console.error);
