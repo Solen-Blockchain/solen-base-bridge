@@ -94,9 +94,15 @@ async function pollForDeposits(onDeposit: DepositCallback) {
     const currentHeight = await pollSolenHeight();
     if (currentHeight <= lastProcessedHeight) return;
 
+    // Stay 2 blocks behind chain tip to give the indexer time to process.
+    // This prevents the race condition where we scan a block before
+    // the explorer API has indexed its events.
+    const safeHeight = Math.max(0, currentHeight - 2);
+    if (safeHeight <= lastProcessedHeight) return;
+
     // Process up to 50 blocks at a time (catch-up mode)
     const startHeight = lastProcessedHeight + 1;
-    const endHeight = Math.min(currentHeight, startHeight + 50);
+    const endHeight = Math.min(safeHeight, startHeight + 50);
 
     for (let h = startHeight; h <= endHeight; h++) {
       const txs = await getBlockTxs(h);
