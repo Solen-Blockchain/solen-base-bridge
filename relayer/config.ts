@@ -3,20 +3,20 @@ import * as path from "path";
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 export const config = {
-  // Base Sepolia
+  // Base Mainnet
   base: {
-    rpc: process.env.BASE_SEPOLIA_RPC || "https://sepolia.base.org",
-    bridgeAddress: "0x114E53baa3A49A3D1F28DCaBdF27EF13EF19bbAD",
-    wsolenAddress: "0x2774FF63879Ae11CC6763538Ec1133d2907fCe8F",
+    rpc: process.env.BASE_RPC || "https://mainnet.base.org",
+    bridgeAddress: "0x076b3977561a8eDb6E92CCA479104DD62DdaFf7C",
+    wsolenAddress: "0xFaa59fbA59E8dEb2e1264f3efcd5a3675F6986a9",
     relayerKey: process.env.DEPLOYER_PRIVATE_KEY!,
-    chainId: 84532,
+    chainId: 8453,
   },
 
-  // Solen Testnet
+  // Solen Mainnet
   solen: {
-    rpc: "https://testnet-rpc.solenchain.io",
-    ws: "wss://testnet-rpc.solenchain.io",
-    chainId: 9000,
+    rpc: "http://127.0.0.1:9944",
+    ws: "ws://127.0.0.1:9944",
+    chainId: 1,
     // Bridge vault address on Solen (system contract)
     vaultAddress: "0000000000000000000000000000000000000000000000000000000000000003",
     // Sequencer key for submitting release transactions on Solen
@@ -25,5 +25,5 @@ export const config = {
 
   // Relayer settings
   pollIntervalMs: 5000,
-  confirmations: 1, // Base Sepolia confirmations before relaying
+  confirmations: 3, // Base mainnet confirmations before relaying
 };
