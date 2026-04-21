@@ -12,6 +12,8 @@ import { watchSolenDeposits } from "./solen-watcher";
 import { watchBaseBurns } from "./base-watcher";
 import { relayToBase } from "./base-relayer";
 import { relayToSolen } from "./solen-relayer";
+import { startCrossChainSolver } from "./cross-chain-solver";
+import { startPresaleWatcher } from "./bsc-presale-watcher";
 
 const BRIDGE_ABI = [
   "function relayDeposit(bytes32 solenTxHash, address recipient, uint256 amount) external",
@@ -60,7 +62,13 @@ async function main() {
     await relayToSolen(burn);
   });
 
-  console.log("\nRelayer running. Press Ctrl+C to stop.\n");
+  console.log("Starting cross-chain solver...");
+  await startCrossChainSolver();
+
+  console.log("Starting BSC presale watcher...");
+  await startPresaleWatcher();
+
+  console.log("\nRelayer + solver + presale watcher running. Press Ctrl+C to stop.\n");
 
   // Keep alive
   process.on("SIGINT", () => {

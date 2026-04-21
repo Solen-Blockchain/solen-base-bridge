@@ -26,6 +26,11 @@ const config: HardhatUserConfig = {
       accounts: [DEPLOYER_KEY],
       chainId: 8453,
     },
+    bsc: {
+      url: "https://bsc-dataseed.binance.org",
+      accounts: [process.env.BSC_DEPLOYER_KEY || DEPLOYER_KEY],
+      chainId: 56,
+    },
   },
   etherscan: {
     apiKey: "YJ3EZHC4MBVXKD2ZVCP8HGU4PE2QT4S71E",
